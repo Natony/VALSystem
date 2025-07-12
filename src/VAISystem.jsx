@@ -22,85 +22,86 @@ const VAISystem = () => {
       location: "SS-06-A5",
       unitPrice: "250.000 VND",
       restock: 0,
-      image: "/img/SS-06-A5.jpg"
+      image: "/img/189887.jpg"
     },
     {
       id: 2,
-      name: "Contactor Schneider LC1D18M7",
+      name: "Relay trung gian RXM2AB2BD Schneider",
       materialCode: "190626",
-      description: "SCHNEIDER CONTACTOR LC1D18M7",
+      description: "Relay trung gian RXM2AB2BD Schneider",
       stockOut: 2,
       location: "SS-06-A3",
       unitPrice: "180.000 VND",
       restock: 0,
-      image: "https://via.placeholder.com/80x80/f3e5f5/7b1fa2?text=CONTACTOR"
+      image: "/img/190626.jpg"
     },
     {
       id: 3,
-      name: "Đầu nối công nghiệp",
+      name: "Motor",
       materialCode: "191445",
-      description: "INDUSTRIAL CONNECTOR",
+      description: "Motor",
       stockOut: 2,
       location: "SS-06-A2",
       unitPrice: "95.000 VND",
       restock: 0,
-      image: "https://via.placeholder.com/80x80/fff3e0/f57c00?text=CONNECTOR"
+      image: "/img/191445.jpg"
     },
-    {
+        {
       id: 4,
-      name: "Relay bảo vệ nhiệt",
-      materialCode: "192001",
-      description: "THERMAL OVERLOAD RELAY LRD22",
-      stockOut: 3,
+      name: "CB CHỐNG GIẬT SCHNEIDER A9D31606 6A 1P+N",
+      materialCode: "249403",
+      description: "CB CHỐNG GIẬT SCHNEIDER A9D31606 6A 1P+N",
+      stockOut: 2,
       location: "SS-06-A4",
-      unitPrice: "320.000 VND",
-      restock: 1,
-      image: "https://via.placeholder.com/80x80/e8f5e8/2e7d32?text=RELAY"
+      unitPrice: "95.000 VND",
+      restock: 0,
+      image: "/img/249403.jpg"
     },
+
     {
       id: 5,
-      name: "Nút nhấn khẩn cấp",
-      materialCode: "192456",
-      description: "EMERGENCY STOP BUTTON XB5AS8445",
-      stockOut: 1,
-      location: "SS-06-A1",
-      unitPrice: "150.000 VND",
+      name: "BRKR,CIRCUIT:CHINT;DZ47-60-D16;400V;3P",
+      materialCode: "280240",
+      description: "BRKR,CIRCUIT:CHINT;DZ47-60-D16;400V;3P",
+      stockOut: 2,
+      location: "SS-06-A4",
+      unitPrice: "95.000 VND",
       restock: 0,
-      image: "https://via.placeholder.com/80x80/ffebee/c62828?text=STOP"
+      image: "/img/280240.jpg"
     },
     {
       id: 6,
-      name: "Biến tần Schneider ATV12",
-      materialCode: "193789",
-      description: "SCHNEIDER VARIABLE FREQUENCY DRIVE ATV12H075M2",
-      stockOut: 1,
-      location: "SS-06-B1",
-      unitPrice: "1.250.000 VND",
+      name: "BRKR,CIRCUIT:SCHNDR;63A;30MA;RCCB-ID",
+      materialCode: "189917",
+      description: "BRKR,CIRCUIT:SCHNDR;63A;30MA;RCCB-ID",
+      stockOut: 2,
+      location: "SS-06-A4",
+      unitPrice: "95.000 VND",
       restock: 0,
-      image: "https://via.placeholder.com/80x80/e1f5fe/0277bd?text=VFD"
+      image: "/img/189917.jpg"
     },
     {
       id: 7,
-      name: "Cảm biến áp suất",
-      materialCode: "194234",
-      description: "PRESSURE SENSOR XMLA001A2C11",
+      name: "BRKR,CIRCUIT:SCHNDR;A9F74132;220-240VAC",
+      materialCode: "189872",
+      description: "BRKR,CIRCUIT:SCHNDR;A9F74132;220-240VAC",
       stockOut: 2,
-      location: "SS-06-B2",
-      unitPrice: "890.000 VND",
-      restock: 1,
-      image: "https://via.placeholder.com/80x80/f9fbe7/689f38?text=SENSOR"
+      location: "SS-06-A4",
+      unitPrice: "95.000 VND",
+      restock: 0,
+      image: "/img/189872.jpg"
     },
     {
       id: 8,
-      name: "Motor servo Panasonic",
-      materialCode: "195567",
-      description: "PANASONIC SERVO MOTOR MSMA012A1G",
-      stockOut: 1,
-      location: "SS-06-B3",
-      unitPrice: "2.150.000 VND",
+      name: "BRKR,CIRCUIT:SCHNDR;A9F74250;220-240VAC",
+      materialCode: "189877",
+      description: "BRKR,CIRCUIT:SCHNDR;A9F74250;220-240VAC",
+      stockOut: 2,
+      location: "SS-06-A4",
+      unitPrice: "95.000 VND",
       restock: 0,
-      image: "https://via.placeholder.com/80x80/fce4ec/880e4f?text=MOTOR"
-    }
+      image: "/img/189877.jpg"
+    },
   ]);
 
   const tabs = [
@@ -217,13 +218,6 @@ const VAISystem = () => {
                 Tìm thấy <span className="font-semibold text-blue-600">{filteredParts.length}</span> thiết bị khớp với "<span className="font-semibold">{searchQuery}</span>"
               </div>
             )}
-          </div>
-
-          {/* VAI Logo */}
-          <div className="flex justify-start mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-2xl">VAI</span>
-            </div>
           </div>
 
           {/* Tab Navigation */}
@@ -381,21 +375,7 @@ const VAISystem = () => {
           )}
 
           {/* Stats and Info Cards */}
-          <div className="grid grid-cols-4 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Tổng số thiết bị</h3>
-              <div className="text-3xl font-bold text-gray-900">
-                {sparePartsData.length}
-              </div>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Tổng Stock quantity</h3>
-              <div className="text-3xl font-bold text-gray-900">
-                {filteredParts.reduce((sum, part) => sum + part.stockOut, 0)}
-              </div>
-            </div>
-            
+          <div className="grid grid-cols-2 gap-6 mb-8">
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <h3 className="text-sm font-medium text-gray-600 mb-2">Material description</h3>
               <div className="text-sm text-gray-900">
@@ -428,7 +408,6 @@ const VAISystem = () => {
                     <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 border">Spare part</th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 border">Stock out</th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 border">Location</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 border">Unit price</th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 border">Restock</th>
                   </tr>
                 </thead>
@@ -468,23 +447,6 @@ const VAISystem = () => {
                       </td>
                       <td className="px-6 py-4 border text-center">
                         <div className="text-sm font-medium text-gray-900">{item.location}</div>
-                      </td>
-                      <td className="px-6 py-4 border text-center">
-                        <input
-                          type="text"
-                          placeholder="Nhập giá"
-                          value={item.unitPrice}
-                          onChange={(e) => {
-                            setSparePartsData(prev => 
-                              prev.map(part => 
-                                part.id === item.id 
-                                  ? { ...part, unitPrice: e.target.value }
-                                  : part
-                              )
-                            );
-                          }}
-                          className="w-32 px-3 py-2 border border-gray-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        />
                       </td>
                       <td className="px-6 py-4 border text-center">
                         <div className="text-lg font-semibold text-gray-900">{item.restock}</div>
