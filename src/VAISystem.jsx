@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Search, Bell, MessageSquare, Network, HelpCircle, Menu, Download, Calendar, Users, Settings, BarChart3, Package, Wrench, Tag, FileText, CheckSquare, Building, Upload, Camera } from 'lucide-react';
+import { Search, Bell, MessageSquare, Network, HelpCircle, Menu, Download, Calendar, Users, Settings, BarChart3, Package, Wrench, Tag, FileText, CheckSquare, Building, Upload, Camera, Plus, X } from 'lucide-react';
 
 const VAISystem = () => {
   const [selectedTab, setSelectedTab] = useState('spare-parts');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAddForm, setShowAddForm] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     period: 'Period of time',
     plant: 'Plant : 8800',
@@ -14,33 +15,91 @@ const VAISystem = () => {
   const [sparePartsData, setSparePartsData] = useState([
     {
       id: 1,
+      name: "CB Bảo vệ động cơ Schneider",
       materialCode: "189887",
       description: "CB BẢO VỆ ĐỘNG CƠ SCHNEIDER GV2ME14 (6-10A)",
       stockOut: 2,
       location: "SS-06-A5",
-      unitPrice: "",
+      unitPrice: "250.000 VND",
       restock: 0,
-      image: "mobility-dashboard\img\SS-06-A5.jpg"
+      image: "/img/SS-06-A5.jpg"
     },
     {
       id: 2,
+      name: "Contactor Schneider LC1D18M7",
       materialCode: "190626",
       description: "SCHNEIDER CONTACTOR LC1D18M7",
       stockOut: 2,
       location: "SS-06-A3",
-      unitPrice: "",
+      unitPrice: "180.000 VND",
       restock: 0,
-      image: "mobility-dashboard\img\SS-06-A3.jpg"
+      image: "https://via.placeholder.com/80x80/f3e5f5/7b1fa2?text=CONTACTOR"
     },
     {
       id: 3,
+      name: "Đầu nối công nghiệp",
       materialCode: "191445",
       description: "INDUSTRIAL CONNECTOR",
       stockOut: 2,
       location: "SS-06-A2",
-      unitPrice: "",
+      unitPrice: "95.000 VND",
       restock: 0,
-      image: "mobility-dashboard\img\SS-06-A2.jpg"
+      image: "https://via.placeholder.com/80x80/fff3e0/f57c00?text=CONNECTOR"
+    },
+    {
+      id: 4,
+      name: "Relay bảo vệ nhiệt",
+      materialCode: "192001",
+      description: "THERMAL OVERLOAD RELAY LRD22",
+      stockOut: 3,
+      location: "SS-06-A4",
+      unitPrice: "320.000 VND",
+      restock: 1,
+      image: "https://via.placeholder.com/80x80/e8f5e8/2e7d32?text=RELAY"
+    },
+    {
+      id: 5,
+      name: "Nút nhấn khẩn cấp",
+      materialCode: "192456",
+      description: "EMERGENCY STOP BUTTON XB5AS8445",
+      stockOut: 1,
+      location: "SS-06-A1",
+      unitPrice: "150.000 VND",
+      restock: 0,
+      image: "https://via.placeholder.com/80x80/ffebee/c62828?text=STOP"
+    },
+    {
+      id: 6,
+      name: "Biến tần Schneider ATV12",
+      materialCode: "193789",
+      description: "SCHNEIDER VARIABLE FREQUENCY DRIVE ATV12H075M2",
+      stockOut: 1,
+      location: "SS-06-B1",
+      unitPrice: "1.250.000 VND",
+      restock: 0,
+      image: "https://via.placeholder.com/80x80/e1f5fe/0277bd?text=VFD"
+    },
+    {
+      id: 7,
+      name: "Cảm biến áp suất",
+      materialCode: "194234",
+      description: "PRESSURE SENSOR XMLA001A2C11",
+      stockOut: 2,
+      location: "SS-06-B2",
+      unitPrice: "890.000 VND",
+      restock: 1,
+      image: "https://via.placeholder.com/80x80/f9fbe7/689f38?text=SENSOR"
+    },
+    {
+      id: 8,
+      name: "Motor servo Panasonic",
+      materialCode: "195567",
+      description: "PANASONIC SERVO MOTOR MSMA012A1G",
+      stockOut: 1,
+      location: "SS-06-B3",
+      unitPrice: "2.150.000 VND",
+      restock: 0,
+      image: "https://via.placeholder.com/80x80/fce4ec/880e4f?text=MOTOR"
     }
   ]);
 
@@ -79,9 +138,28 @@ const VAISystem = () => {
     }
   };
 
+  const handleAddEquipment = (newEquipment) => {
+    const newId = Math.max(...sparePartsData.map(item => item.id)) + 1;
+    const equipment = {
+      id: newId,
+      name: newEquipment.name,
+      materialCode: newEquipment.materialCode,
+      description: newEquipment.description,
+      stockOut: parseInt(newEquipment.stockOut) || 0,
+      location: newEquipment.location,
+      unitPrice: newEquipment.unitPrice,
+      restock: 0,
+      image: `https://via.placeholder.com/80x80/e3f2fd/1976d2?text=${encodeURIComponent(newEquipment.materialCode)}`
+    };
+    setSparePartsData(prev => [...prev, equipment]);
+    setShowAddForm(false);
+  };
+
   const filteredParts = sparePartsData.filter(part =>
+    part.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     part.materialCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    part.description.toLowerCase().includes(searchQuery.toLowerCase())
+    part.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    part.location.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -89,10 +167,10 @@ const VAISystem = () => {
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-sm border-r">
         <div className="p-4">
-          {src = "mobility-dashboard\img\logo.jpg" }
+          {/* VAI Logo */}
           <div className="flex items-center space-x-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-lg">VAI</span>
+            <div className="w-12 h-12 rounded-full overflow-hidden shadow-lg">
+              <img src="/img/logo.jpg" alt="VAI Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="font-bold text-gray-800">VAI System</div>
@@ -128,12 +206,17 @@ const VAISystem = () => {
               <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
-                placeholder="Searching for a piece of equipment, a task"
+                placeholder="Tìm kiếm thiết bị theo tên, mã, mô tả hoặc vị trí..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
+            {searchQuery && (
+              <div className="mt-2 text-sm text-gray-600">
+                Tìm thấy <span className="font-semibold text-blue-600">{filteredParts.length}</span> thiết bị khớp với "<span className="font-semibold">{searchQuery}</span>"
+              </div>
+            )}
           </div>
 
           {/* VAI Logo */}
@@ -179,12 +262,135 @@ const VAISystem = () => {
                 {key === 'material' && <option>Material : 190626</option>}
               </select>
             ))}
+            <button 
+              onClick={() => setShowAddForm(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2 ml-auto"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Thêm thiết bị</span>
+            </button>
           </div>
 
+          {/* Add Equipment Modal */}
+          {showAddForm && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Thêm thiết bị mới</h3>
+                  <button 
+                    onClick={() => setShowAddForm(false)}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target);
+                  handleAddEquipment({
+                    name: formData.get('name'),
+                    materialCode: formData.get('materialCode'),
+                    description: formData.get('description'),
+                    stockOut: formData.get('stockOut'),
+                    location: formData.get('location'),
+                    unitPrice: formData.get('unitPrice')
+                  });
+                }}>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Tên thiết bị</label>
+                      <input 
+                        type="text" 
+                        name="name" 
+                        required 
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Nhập tên thiết bị"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Mã thiết bị</label>
+                      <input 
+                        type="text" 
+                        name="materialCode" 
+                        required 
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Nhập mã thiết bị"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Mô tả</label>
+                      <textarea 
+                        name="description" 
+                        required 
+                        rows="2"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Nhập mô tả thiết bị"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Số lượng</label>
+                        <input 
+                          type="number" 
+                          name="stockOut" 
+                          required 
+                          min="0"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="0"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Vị trí</label>
+                        <input 
+                          type="text" 
+                          name="location" 
+                          required 
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="SS-06-XX"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Giá (VND)</label>
+                      <input 
+                        type="text" 
+                        name="unitPrice" 
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Nhập giá thiết bị"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex space-x-3 mt-6">
+                    <button 
+                      type="button"
+                      onClick={() => setShowAddForm(false)}
+                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+                    >
+                      Hủy
+                    </button>
+                    <button 
+                      type="submit"
+                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                    >
+                      Thêm thiết bị
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+
           {/* Stats and Info Cards */}
-          <div className="grid grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-4 gap-6 mb-8">
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Total Stock quantity</h3>
+              <h3 className="text-sm font-medium text-gray-600 mb-2">Tổng số thiết bị</h3>
+              <div className="text-3xl font-bold text-gray-900">
+                {sparePartsData.length}
+              </div>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-sm border">
+              <h3 className="text-sm font-medium text-gray-600 mb-2">Tổng Stock quantity</h3>
               <div className="text-3xl font-bold text-gray-900">
                 {filteredParts.reduce((sum, part) => sum + part.stockOut, 0)}
               </div>
@@ -208,6 +414,13 @@ const VAISystem = () => {
 
           {/* Spare Parts Table */}
           <div className="bg-white rounded-lg shadow-sm border">
+            <div className="px-6 py-4 border-b">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Danh sách thiết bị ({filteredParts.length})
+                </h2>
+              </div>
+            </div>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50">
@@ -227,8 +440,11 @@ const VAISystem = () => {
                           <div className="relative group">
                             <img
                               src={item.image}
-                              alt={item.description}
+                              alt={item.name}
                               className="w-16 h-16 object-cover rounded border cursor-pointer hover:opacity-75 transition-opacity"
+                              onError={(e) => {
+                                e.target.src = `https://via.placeholder.com/80x80/f0f0f0/666?text=${encodeURIComponent(item.materialCode)}`;
+                              }}
                             />
                             <label className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-50 rounded cursor-pointer transition-all">
                               <Camera className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -241,7 +457,8 @@ const VAISystem = () => {
                             </label>
                           </div>
                           <div>
-                            <div className="font-semibold text-gray-900">{item.materialCode}</div>
+                            <div className="font-bold text-blue-600">{item.name}</div>
+                            <div className="font-semibold text-gray-900">#{item.materialCode}</div>
                             <div className="text-sm text-gray-600 max-w-xs">{item.description}</div>
                           </div>
                         </div>
@@ -255,7 +472,7 @@ const VAISystem = () => {
                       <td className="px-6 py-4 border text-center">
                         <input
                           type="text"
-                          placeholder="Enter price"
+                          placeholder="Nhập giá"
                           value={item.unitPrice}
                           onChange={(e) => {
                             setSparePartsData(prev => 
@@ -266,7 +483,7 @@ const VAISystem = () => {
                               )
                             );
                           }}
-                          className="w-24 px-2 py-1 border border-gray-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-32 px-3 py-2 border border-gray-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                       </td>
                       <td className="px-6 py-4 border text-center">
@@ -279,12 +496,6 @@ const VAISystem = () => {
             </div>
           </div>
 
-          {/* Search Results Info */}
-          {searchQuery && (
-            <div className="mt-4 text-sm text-gray-600">
-              Found {filteredParts.length} equipment(s) matching "{searchQuery}"
-            </div>
-          )}
         </main>
       </div>
     </div>
